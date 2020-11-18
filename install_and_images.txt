@@ -1,3 +1,6 @@
+how to install pygame:
+    pip install -r requirements.txt
+
 background-black.png
 pixel_laser_blue.png
 pixel_laser_green.png
@@ -7,3 +10,4 @@ pixel_ship_blue_small.png
 pixel_ship_green_small.png
 pixel_ship_red_small.png
 pixel_ship_yellow.png
+
