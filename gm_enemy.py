@@ -1,4 +1,6 @@
-from config import HEIGHT
+import pygame
+import os
+from config import HEIGHT, soundFolder
 from gm_laser import Laser
 from asset_loader import (
     RED_SPACE_SHIP,
@@ -32,3 +34,6 @@ class Enemy(Ship):
             laser = Laser(int(self.x - 20), self.y, self.laser_img)
             self.lasers.append(laser)
             self.cool_down_counter = 1
+            if self.y > 0:
+                laserEffect = pygame.mixer.Sound(os.path.join(soundFolder,"__laser_modif.wav"))
+                laserEffect.play()

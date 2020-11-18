@@ -3,7 +3,7 @@ import os
 import time
 import random
 from asset_loader import BG
-from config import WIDTH, HEIGHT, GAME_CAPTION, FPS, MAIN_FONT, LOST_FONT
+from config import WIDTH, HEIGHT, GAME_CAPTION, FPS, MAIN_FONT, LOST_FONT, soundFolder
 from gm_player import Player
 from gm_enemy import Enemy
 from gm_utils import collide
@@ -13,6 +13,7 @@ PLAYER = Player(300, 530)
 
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption(GAME_CAPTION)
+pygame.mixer.init()
 
 
 def checkEvents():
@@ -56,6 +57,13 @@ def centerLabel(label, height):
     return (newWidth, height)
 
 
+def playGameMusic():
+    pygame.mixer.music.load(os.path.join(soundFolder,"night-soft-techno_modif.mp3"))
+    pygame.mixer.music.play(-1)
+
+def stopGameMusic():
+    pygame.mixer.music.stop()
+
 def main():
     global RUN
     level = 0
@@ -65,6 +73,7 @@ def main():
     lost = False
     lost_count = 0
     clock = pygame.time.Clock()
+    playGameMusic()
 
     def redraw_window():
         WIN.blit(BG, (0, 0))
@@ -94,6 +103,7 @@ def main():
 
         if lost:
             if lost_count > FPS * 3:
+                stopGameMusic()
                 RUN = False
             else:
                 continue
@@ -115,6 +125,8 @@ def main():
 
             if collide(enemy, PLAYER):
                 PLAYER.health -= 10
+                laserEffect = pygame.mixer.Sound(os.path.join(soundFolder,"__retro-bomb-explosion_modif.wav"))
+                laserEffect.play()
                 enemies.remove(enemy)
             elif enemy.checkBelowScreen():
                 lives -= 1
