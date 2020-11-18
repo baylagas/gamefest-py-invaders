@@ -8,6 +8,7 @@ def createFont(fontName, fontSize):
 
 
 assetFolder = "assets"
+soundFolder = "sound"
 
 WIDTH, HEIGHT = 750, 650
 GAME_CAPTION = "PYTHON INVADERS"

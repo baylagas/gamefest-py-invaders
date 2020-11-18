@@ -1,4 +1,6 @@
 import pygame
+import os
+from config import soundFolder
 from gm_laser import Laser
 
 
@@ -47,6 +49,8 @@ class Ship:
             laser = Laser(self.x, self.y, self.laser_img)
             self.lasers.append(laser)
             self.cool_down_counter = 1
+            laserEffect = pygame.mixer.Sound(os.path.join(soundFolder,"laser-shot-silenced.wav"))
+            laserEffect.play()
 
     def moveDown(self):
         self.y += self.velocity

@@ -1,4 +1,6 @@
 import pygame
+import os
+from config import soundFolder
 from asset_loader import YELLOW_SPACE_SHIP, YELLOW_LASER
 from gm_abs_ship import Ship
 
@@ -22,6 +24,9 @@ class Player(Ship):
             else:
                 for obj in objs:
                     if laser.collision(obj):
+                        if obj.y > 0:
+                            laserEffect = pygame.mixer.Sound(os.path.join(soundFolder,"__retro-bomb-explosion_modif.wav"))
+                            laserEffect.play()
                         objs.remove(obj)
                         self.lasers.remove(laser)
 
